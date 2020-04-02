@@ -235,9 +235,9 @@ static NSString * const ShouldColorizeMessageItemsUserDefaultsKey = @"shouldColo
     self.userContentController = [WKUserContentController new];
     [self.userContentController addScriptMessageHandler:self name:@"Fastmate"];
 
-    NSString *FastmateSource = [NSString stringWithContentsOfURL:[NSBundle.mainBundle URLForResource:@"Fastmate" withExtension:@"js"] encoding:NSUTF8StringEncoding error:nil];
-    WKUserScript *FastmateScript = [[WKUserScript alloc] initWithSource:FastmateSource injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
-    [self.userContentController addUserScript:FastmateScript];
+    NSString *fastmateSource = [NSString stringWithContentsOfURL:[NSBundle.mainBundle URLForResource:@"Fastmate" withExtension:@"js"] encoding:NSUTF8StringEncoding error:nil];
+    WKUserScript *fastmateScript = [[WKUserScript alloc] initWithSource:fastmateSource injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+    [self.userContentController addUserScript:fastmateScript];
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
