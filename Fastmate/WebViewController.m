@@ -7,11 +7,11 @@
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) WKWebView *temporaryWebView;
 @property (nonatomic, strong) WKUserContentController *userContentController;
-@property (nonatomic, readonly) NSURL *baseURL;
 
 @end
 
 static NSString * const ShouldUseFastmailBetaUserDefaultsKey = @"shouldUseFastmailBeta";
+static NSString * const ShouldColorizeMessageItemsUserDefaultsKey = @"shouldColorizeMessageItems";
 
 @implementation WebViewController
 
@@ -28,10 +28,11 @@ static NSString * const ShouldUseFastmailBetaUserDefaultsKey = @"shouldUseFastma
     self.webView.navigationDelegate = self;
     self.webView.UIDelegate = self;
     [self.view addSubview:self.webView];
-
+    
     [self.webView loadRequest:[NSURLRequest requestWithURL:self.baseURL]];
     [self addObserver:self forKeyPath:@"webView.URL" options:NSKeyValueObservingOptionNew context:nil];
     [NSUserDefaults.standardUserDefaults addObserver:self forKeyPath:ShouldUseFastmailBetaUserDefaultsKey options:NSKeyValueObservingOptionNew context:nil];
+    [NSUserDefaults.standardUserDefaults addObserver:self forKeyPath:ShouldColorizeMessageItemsUserDefaultsKey options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)reload {
@@ -46,6 +47,7 @@ static NSString * const ShouldUseFastmailBetaUserDefaultsKey = @"shouldUseFastma
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"webView.URL"];
     [NSUserDefaults.standardUserDefaults removeObserver:self forKeyPath:ShouldUseFastmailBetaUserDefaultsKey];
+    [NSUserDefaults.standardUserDefaults removeObserver:self forKeyPath:ShouldColorizeMessageItemsUserDefaultsKey];
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
@@ -54,13 +56,14 @@ static NSString * const ShouldUseFastmailBetaUserDefaultsKey = @"shouldUseFastma
         [NSWorkspace.sharedWorkspace openURL:navigationAction.request.URL];
         decisionHandler(WKNavigationActionPolicyCancel);
         self.temporaryWebView = nil;
-    } else if ([navigationAction.request.URL.host isEqualToString:@"www.fastmailusercontent.com"]) {
+    } else if ([navigationAction.request.URL.host hasSuffix:@".fastmailusercontent.com"]) {
         NSURLComponents *components = [NSURLComponents componentsWithURL:navigationAction.request.URL resolvingAgainstBaseURL:NO];
         BOOL shouldDownload = [components.queryItems indexOfObjectPassingTest:^BOOL(NSURLQueryItem *item, NSUInteger index, BOOL *stop) {
             return [item.name isEqualToString:@"download"] && [item.value isEqualToString:@"1"];
         }] != NSNotFound;
-        if (shouldDownload) {
-            [NSWorkspace.sharedWorkspace openURL:navigationAction.request.URL];
+        if (shouldDownload || ![components.path.lastPathComponent hasSuffix:@".pdf"]) {
+            //[NSWorkspace.sharedWorkspace openURL:navigationAction.request.URL];
+            [self downloadFileFromURL:navigationAction.request.URL completion:^(NSString *filepath) {}];
             decisionHandler(WKNavigationActionPolicyCancel);
         } else {
             decisionHandler(WKNavigationActionPolicyAllow);
@@ -74,6 +77,60 @@ static NSString * const ShouldUseFastmailBetaUserDefaultsKey = @"shouldUseFastma
     }
 }
 
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler{
+    NSHTTPURLResponse *response = (NSHTTPURLResponse *)navigationResponse.response;
+    NSArray *cookies =[NSHTTPCookie cookiesWithResponseHeaderFields:[response allHeaderFields] forURL:response.URL];
+
+    for (NSHTTPCookie *cookie in cookies) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+    }
+
+    decisionHandler(WKNavigationResponsePolicyAllow);
+}
+
+- (void)downloadFileFromURL:(NSURL *)url completion:(void (^)(NSString *filepath))completion {
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod = @"POST";
+
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (!error) {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                    NSString *downloadsDir = [NSSearchPathForDirectoriesInDomains(NSDownloadsDirectory, NSUserDomainMask, YES) firstObject];
+                    NSString *downloadsPath = [downloadsDir stringByAppendingPathComponent:response.suggestedFilename];
+                    
+                    NSFileManager *fileManager = [NSFileManager defaultManager];
+                    if (![fileManager fileExistsAtPath:downloadsPath]) {
+                        [data writeToFile:downloadsPath atomically:YES];
+                    } else {
+                        NSError *err = nil;
+                        NSDate *now = [NSDate date];
+                        NSDictionary *modificationDateAttr = [NSDictionary dictionaryWithObjectsAndKeys: now, NSFileModificationDate, nil];
+                        [fileManager setAttributes:modificationDateAttr ofItemAtPath:downloadsPath error:&err];
+                        if(err != nil) {
+                            NSLog(@"Error downloading file %@=", err);
+                         }
+                        //NSLog(@"Updated file: %@", downloadsPath);
+                    }
+                    
+                    //NSLog(@"Downloaded file to: %@",downloadsPath);
+                    NSSet *extSet = [NSSet setWithObjects:@"doc",@"docx",@"ppt",@"pptx",@"xls",@"xlsx",@"pdf",@"png",@"jpg",nil];
+                    if ([extSet containsObject:downloadsPath.pathExtension]) {
+                        [NSWorkspace.sharedWorkspace openFile:downloadsPath];
+                    }
+                    
+                    completion(downloadsPath);
+                });
+            }
+            else {
+                NSLog(@"ERROR: %@",error);
+                completion([NSString string]);
+            }
+    }];
+    [postDataTask resume];
+}
+
 - (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures {
     self.temporaryWebView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
     self.temporaryWebView.navigationDelegate = self;
@@ -83,6 +140,9 @@ static NSString * const ShouldUseFastmailBetaUserDefaultsKey = @"shouldUseFastma
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (object == self && [keyPath isEqualToString:@"webView.URL"]) {
         [self webViewDidChangeURL:change[NSKeyValueChangeNewKey]];
+    } else if (object == NSUserDefaults.standardUserDefaults && [keyPath isEqualToString:ShouldColorizeMessageItemsUserDefaultsKey]) {
+        NSString *evalJS = [NSString stringWithFormat:@"Fastmate.setColorizeMessageItems(%@);", change[NSKeyValueChangeNewKey]];
+        [self.webView evaluateJavaScript:evalJS completionHandler:nil];
     } else if (object == NSUserDefaults.standardUserDefaults && [keyPath isEqualToString:ShouldUseFastmailBetaUserDefaultsKey]) {
         [self.webView loadRequest:[NSURLRequest requestWithURL:self.baseURL]];
     } else {
@@ -93,6 +153,9 @@ static NSString * const ShouldUseFastmailBetaUserDefaultsKey = @"shouldUseFastma
 - (void)webViewDidChangeURL:(NSURL *)newURL {
     [self queryToolbarColor];
     [self adjustV67Width];
+    [self updateStylesheet];
+    [self colorizeMessageItems];
+    [self addLabelShortcuts];
 }
 
 - (void)composeNewEmail {
@@ -117,6 +180,30 @@ static NSString * const ShouldUseFastmailBetaUserDefaultsKey = @"shouldUseFastma
             [self setWindowBackgroundColor:color];
         }
     }];
+}
+
+- (void)updateStylesheet {
+    BOOL shouldColorizeMessageItems = [NSUserDefaults.standardUserDefaults boolForKey:ShouldColorizeMessageItemsUserDefaultsKey];
+    //shouldColorizeMessageItems = YES;
+    if (shouldColorizeMessageItems) {
+        [self.webView evaluateJavaScript:@"Fastmate.updateStylesheet()" completionHandler:nil];
+    }
+}
+
+- (void)colorizeMessageItems {
+    BOOL shouldColorizeMessageItems = [NSUserDefaults.standardUserDefaults boolForKey:ShouldColorizeMessageItemsUserDefaultsKey];
+    //shouldColorizeMessageItems = YES;
+    if (shouldColorizeMessageItems) {
+        [self.webView evaluateJavaScript:@"Fastmate.colorizeMessageItems()" completionHandler:nil];
+    }
+}
+
+- (void)addLabelShortcuts {
+    [self.webView evaluateJavaScript:@"Fastmate.addLabelShortcuts()" completionHandler:nil];
+}
+
+- (void)adjustV67Width {
+    [self.webView evaluateJavaScript:@"Fastmate.adjustV67Width()" completionHandler:nil];
 }
 
 - (void)updateUnreadCounts {
@@ -148,15 +235,16 @@ static NSString * const ShouldUseFastmailBetaUserDefaultsKey = @"shouldUseFastma
     self.userContentController = [WKUserContentController new];
     [self.userContentController addScriptMessageHandler:self name:@"Fastmate"];
 
-    NSString *fastmateSource = [NSString stringWithContentsOfURL:[NSBundle.mainBundle URLForResource:@"Fastmate" withExtension:@"js"] encoding:NSUTF8StringEncoding error:nil];
-    WKUserScript *fastmateScript = [[WKUserScript alloc] initWithSource:fastmateSource injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
-    [self.userContentController addUserScript:fastmateScript];
+    NSString *FastmateSource = [NSString stringWithContentsOfURL:[NSBundle.mainBundle URLForResource:@"Fastmate" withExtension:@"js"] encoding:NSUTF8StringEncoding error:nil];
+    WKUserScript *FastmateScript = [[WKUserScript alloc] initWithSource:FastmateSource injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+    [self.userContentController addUserScript:FastmateScript];
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     if ([message.body isEqualToString:@"documentDidChange"]) {
         [self queryToolbarColor];
         [self updateUnreadCounts];
+        [self colorizeMessageItems];
     } else if ([message.body isEqualToString:@"print"]) {
         [PrintManager.sharedInstance printWebView:self.webView];
     } else {
@@ -227,10 +315,6 @@ static NSString * const ShouldUseFastmailBetaUserDefaultsKey = @"shouldUseFastma
     [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
         completionHandler(returnCode == NSAlertFirstButtonReturn ? textField.stringValue : defaultText);
     }];
-}
-
-- (void)adjustV67Width {
-    [self.webView evaluateJavaScript:@"Fastmate.adjustV67Width()" completionHandler:nil];
 }
 
 @end

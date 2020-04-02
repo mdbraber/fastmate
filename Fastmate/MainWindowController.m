@@ -1,6 +1,7 @@
 #import "MainWindowController.h"
 #import "WebViewController.h"
 #import "AppDelegate.h"
+@import WebKit;
 
 @interface MainWindowController () <NSWindowDelegate>
 
@@ -16,6 +17,7 @@
     // so inform the app delegate
     AppDelegate *appDelegate = (AppDelegate *)NSApplication.sharedApplication.delegate;
     appDelegate.mainWebViewController = (WebViewController *)self.contentViewController;
+    
     NSString *lastWindowFrame = [NSUserDefaults.standardUserDefaults objectForKey:@"mainWindowFrame"];
     if (lastWindowFrame) {
         NSRect frame = NSRectFromString(lastWindowFrame);

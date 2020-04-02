@@ -1,11 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Window Controller-->
+        <scene sceneID="QUi-z9-qJk">
+            <objects>
+                <windowController showSeguePresentationStyle="single" id="Tb4-4g-lf4" customClass="ComposeWindowController" sceneMemberID="viewController">
+                    <window key="window" title="Compose" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="6Ex-sg-5wC">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="686" y="526" width="561" height="682"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="3840" height="1577"/>
+                        <connections>
+                            <outlet property="delegate" destination="Tb4-4g-lf4" id="LPg-z1-uBT"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="hJF-NB-r9G" kind="relationship" relationship="window.shadowedContentViewController" id="rCp-L7-0mc"/>
+                    </connections>
+                </windowController>
+                <customObject id="FsM-iU-mNp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132.5" y="-533"/>
+        </scene>
+        <!--Compose View Controller-->
+        <scene sceneID="VSx-Iq-v87">
+            <objects>
+                <viewController id="hJF-NB-r9G" customClass="ComposeViewController" sceneMemberID="viewController">
+                    <view key="view" id="FZn-Au-hPn">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="SVT-OX-fby" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="951" y="-418"/>
+        </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
             <objects>
@@ -73,6 +107,11 @@
                                         <menuItem title="New mail" keyEquivalent="n" id="Was-JA-tGl">
                                             <connections>
                                                 <action selector="newDocument:" target="Ady-hI-5gd" id="4Si-XN-c54"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Compose in New Window" keyEquivalent="N" id="iBb-vp-0hR">
+                                            <connections>
+                                                <segue destination="Tb4-4g-lf4" kind="show" identifier="Compose Window" id="wD1-Ja-ze9"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
@@ -280,7 +319,7 @@
                                 <menu key="submenu" title="View" id="HyV-fh-RgO">
                                     <items>
                                         <menuItem title="Enter Full Screen" keyEquivalent="f" id="4J7-dP-txa">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" control="YES" option="YES" command="YES"/>
                                             <connections>
                                                 <action selector="toggleFullScreen:" target="Ady-hI-5gd" id="dU3-MA-1Rq"/>
                                             </connections>
@@ -308,18 +347,6 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="arrangeInFront:" target="Ady-hI-5gd" id="DRN-fu-gQh"/>
-                                            </connections>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem title="Help" id="wpr-3q-Mcd">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
-                                    <items>
-                                        <menuItem title="Fastmate Help" keyEquivalent="?" id="FKE-Sm-Kum">
-                                            <connections>
-                                                <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -438,17 +465,31 @@
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
                                                     <connections>
-                                                        <binding destination="aLa-hz-uMh" name="value" keyPath="values.shouldUseFastmailBeta" id="sHt-1u-HaF"/>
+                                                        <binding destination="aLa-hz-uMh" name="value" keyPath="values.shouldUseFastmailBeta" id="pAA-8m-oHA"/>
                                                     </connections>
                                                 </button>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DCx-lT-0rb">
                                                     <rect key="frame" x="33" y="105" width="403" height="14"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" title="Be aware that Fastmate might not work properly when running beta versions" id="R8M-jQ-qg0">
-                                                        <font key="font" metaFont="controlContent" size="11"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
+                                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Bg-Uc-Mrm">
+                                                    <rect key="frame" x="15" y="81" width="290" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <buttonCell key="cell" type="check" title="Colorize messages based on first label color" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Uir-sc-ccs">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                        <connections>
+                                                            <binding destination="aLa-hz-uMh" name="value" keyPath="values.shouldColorizeMessageItems" id="cft-J2-2O7"/>
+                                                        </connections>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <binding destination="aLa-hz-uMh" name="value" keyPath="values.shouldColorizeMessageItems" id="cmi-pz-Siw"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DCx-lT-0rb" secondAttribute="trailing" constant="17" id="9Fp-aT-KAz"/>

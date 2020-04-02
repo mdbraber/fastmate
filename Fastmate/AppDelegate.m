@@ -3,6 +3,7 @@
 #import "UnreadCountObserver.h"
 #import "VersionChecker.h"
 #import "PrintManager.h"
+@import WebKit;
 
 @interface AppDelegate () <VersionCheckerDelegate, NSUserNotificationCenterDelegate>
 
@@ -14,12 +15,15 @@
 
 @implementation AppDelegate
 
+@synthesize fastmailTitle;
+@synthesize fastmailURL;
+
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
     [NSAppleEventManager.sharedAppleEventManager setEventHandler:self andSelector:@selector(handleURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 
     NSColor *windowColor = [NSKeyedUnarchiver unarchiveObjectWithData:[NSUserDefaults.standardUserDefaults dataForKey:@"lastUsedWindowColor"]];
     NSApplication.sharedApplication.mainWindow.backgroundColor = windowColor ?: [NSColor colorWithRed:0.27 green:0.34 blue:0.49 alpha:1.0];
-
+    
     [self updateStatusItemVisibility];
     [NSUserDefaults.standardUserDefaults addObserver:self forKeyPath:@"shouldShowStatusBarIcon" options:0 context:nil];
     [NSUserNotificationCenter.defaultUserNotificationCenter setDelegate:self];
@@ -36,6 +40,10 @@
     self.unreadCountObserver.webViewController = mainWebViewController;
 }
 
+- (void)setComposeWebViewController:(WebViewController *)composeWebViewController {
+    _composeWebViewController = composeWebViewController;
+}
+
 - (UnreadCountObserver *)unreadCountObserver {
     if (_unreadCountObserver == nil) {
         _unreadCountObserver = [UnreadCountObserver new];
@@ -44,7 +52,7 @@
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
-    [NSUserDefaults.standardUserDefaults registerDefaults:@{@"automaticUpdateChecks": @YES, @"shouldShowUnreadMailIndicator": @YES, @"shouldShowUnreadMailInDock": @YES, @"shouldShowUnreadMailCountInDock": @YES, @"shouldUseFastmailBeta": @NO}];
+    [NSUserDefaults.standardUserDefaults registerDefaults:@{@"automaticUpdateChecks": @YES, @"shouldShowUnreadMailIndicator": @YES, @"shouldShowUnreadMailInDock": @YES, @"shouldShowUnreadMailCountInDock": @YES, @"shouldUseFastmailBeta": @NO, @"shouldColorizeMessageItems": @NO}];
     [self performAutomaticUpdateCheckIfNeeded];
 }
 
@@ -54,14 +62,18 @@
 
 - (void)handleURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
     NSAppleEventDescriptor *directObjectDescriptor = [event paramDescriptorForKeyword:keyDirectObject];
-    NSURL *mailtoURL = [NSURL URLWithString:directObjectDescriptor.stringValue];
-    [self.mainWebViewController handleMailtoURL:mailtoURL];
+    NSURL *eventURL = [NSURL URLWithString:directObjectDescriptor.stringValue];
+    if ([eventURL.scheme isEqualToString:@"mailto"]) {
+        [self.mainWebViewController handleMailtoURL:eventURL];
+    } else if ([eventURL.host hasSuffix:@".fastmail.com"] && [eventURL.path hasPrefix:@"/mail"]) {
+        [self.mainWebViewController.webView loadRequest:[NSURLRequest requestWithURL:eventURL]];
+    }
 }
 
 - (IBAction)newDocument:(id)sender {
     [self.mainWebViewController composeNewEmail];
 }
-
+ 
 - (IBAction)performFindPanelAction:(id)sender {
     [self.mainWebViewController focusSearchField];
 }
@@ -92,6 +104,28 @@
 - (void)statusItemSelected:(id)sender {
     [NSApp unhide:sender];
     [NSApp activateIgnoringOtherApps:YES];
+}
+
+- (NSString *)fastmailURL {
+    return [self.mainWebViewController.webView URL].absoluteString;
+}
+
+- (NSString *)fastmailTitle {
+    return [self.mainWebViewController.webView title];
+}
+
+- (void)evaluateJavaScript:(NSString *)scriptString {
+    [self.mainWebViewController.webView evaluateJavaScript:scriptString completionHandler:^(id response, NSError *error) {
+        if (error != nil) {
+            NSLog(@"Error evaluating JavaScript: %@", error);
+        }
+    }];
+}
+    
+- (BOOL)application:(NSApplication *)sender delegateHandlesKey:(NSString *)key
+{
+    NSSet *keySet = [NSSet setWithObjects:@"fastmailURL",@"fastmailTitle",nil];
+    return [keySet containsObject:key];
 }
 
 #pragma mark - Version checking

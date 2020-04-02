@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Fastmate.xcodeproj">
+      location = "self:/Users/mdbraber/src/fastmate/Fastmate.xcodeproj">
    </FileRef>
 </Workspace>

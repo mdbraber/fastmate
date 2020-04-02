@@ -46,7 +46,7 @@
 
 - (void)checkForUpdates
 {
-    [[self.session dataTaskWithURL:[NSURL URLWithString:@"https://github.com/joelekstrom/fastmate/releases/latest"]] resume];
+    [[self.session dataTaskWithURL:[NSURL URLWithString:@"https://github.com/joelekstrom/Fastmate/releases/latest"]] resume];
 }
 
 - (void)URLSession:(NSURLSession *)session

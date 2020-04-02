@@ -7,43 +7,54 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5D0F8E95240B910A00287BD1 /* PrintManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0F8E94240B910A00287BD1 /* PrintManager.m */; };
-		5D14A8EB22C425B400A5ACE9 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5D14A8EA22C425B400A5ACE9 /* Credits.rtf */; };
-		5D39BEDB2122383800693D7E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D39BEDA2122383800693D7E /* AppDelegate.m */; };
-		5D39BEDD2122383900693D7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D39BEDC2122383900693D7E /* Assets.xcassets */; };
-		5D39BEE32122383900693D7E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D39BEE22122383900693D7E /* main.m */; };
-		5D6E3B372122FF9E00ED16C9 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D6E3B362122FF9E00ED16C9 /* WebViewController.m */; };
-		5D6E3B3B212824AF00ED16C9 /* Fastmate.js in Resources */ = {isa = PBXBuildFile; fileRef = 5D6E3B3A212824AF00ED16C9 /* Fastmate.js */; };
-		5D6EF77B212E018700C84B4A /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D6EF77A212E018700C84B4A /* MainWindowController.m */; };
-		5DA21A162128617900C765BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DA21A142128617900C765BF /* Main.storyboard */; };
-		5DA21A19212865F000C765BF /* UnreadCountObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA21A18212865F000C765BF /* UnreadCountObserver.m */; };
-		5DC2AF2D225933BE004C94E5 /* VersionChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DC2AF2C225933BE004C94E5 /* VersionChecker.m */; };
-		5DCFE8792258CEC5006B1A21 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DCFE8782258CEC5006B1A21 /* SettingsViewController.m */; };
+		6B3A46A32435D4B100261EBC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6B3A468A2435D4B000261EBC /* Credits.rtf */; };
+		6B3A46A42435D4B100261EBC /* UnreadCountObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A468B2435D4B000261EBC /* UnreadCountObserver.m */; };
+		6B3A46A52435D4B100261EBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A468C2435D4B000261EBC /* main.m */; };
+		6B3A46A72435D4B100261EBC /* VersionChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A468F2435D4B000261EBC /* VersionChecker.m */; };
+		6B3A46A92435D4B100261EBC /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A46932435D4B000261EBC /* WebViewController.m */; };
+		6B3A46AA2435D4B100261EBC /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A46972435D4B000261EBC /* MainWindowController.m */; };
+		6B3A46AB2435D4B100261EBC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A46982435D4B000261EBC /* SettingsViewController.m */; };
+		6B3A46AC2435D4B100261EBC /* ComposeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A46992435D4B000261EBC /* ComposeWindowController.m */; };
+		6B3A46AD2435D4B100261EBC /* FastmateScriptCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A469A2435D4B000261EBC /* FastmateScriptCommand.m */; };
+		6B3A46AE2435D4B100261EBC /* Fastmate.js in Resources */ = {isa = PBXBuildFile; fileRef = 6B3A469B2435D4B000261EBC /* Fastmate.js */; };
+		6B3A46AF2435D4B100261EBC /* PrintManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A469C2435D4B000261EBC /* PrintManager.m */; };
+		6B3A46B02435D4B100261EBC /* Fastmate.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 6B3A469E2435D4B100261EBC /* Fastmate.sdef */; };
+		6B3A46B12435D4B100261EBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B3A46A02435D4B100261EBC /* Assets.xcassets */; };
+		6B3A46B22435D4B100261EBC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A46A22435D4B100261EBC /* AppDelegate.m */; };
+		6B3A46B52435D60F00261EBC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B3A46B42435D60F00261EBC /* Main.storyboard */; };
+		6B522DD72435E92D00BCC9BE /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B235EC02435E7EB0008A00B /* ComposeViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5D0F8E93240B910A00287BD1 /* PrintManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrintManager.h; sourceTree = "<group>"; };
-		5D0F8E94240B910A00287BD1 /* PrintManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrintManager.m; sourceTree = "<group>"; };
-		5D14A8EA22C425B400A5ACE9 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		5D39BED62122383800693D7E /* Fastmate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fastmate.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5D39BED92122383800693D7E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		5D39BEDA2122383800693D7E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		5D39BEDC2122383900693D7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		5D39BEE12122383900693D7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5D39BEE22122383900693D7E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		5D39BEE42122383900693D7E /* Fastmate.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fastmate.entitlements; sourceTree = "<group>"; };
-		5D6E3B352122FF9E00ED16C9 /* WebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
-		5D6E3B362122FF9E00ED16C9 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
-		5D6E3B3A212824AF00ED16C9 /* Fastmate.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Fastmate.js; sourceTree = "<group>"; };
-		5D6EF779212E018700C84B4A /* MainWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
-		5D6EF77A212E018700C84B4A /* MainWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
-		5DA21A152128617900C765BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5DA21A17212865F000C765BF /* UnreadCountObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnreadCountObserver.h; sourceTree = "<group>"; };
-		5DA21A18212865F000C765BF /* UnreadCountObserver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnreadCountObserver.m; sourceTree = "<group>"; };
-		5DC2AF2B225933BE004C94E5 /* VersionChecker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VersionChecker.h; sourceTree = "<group>"; };
-		5DC2AF2C225933BE004C94E5 /* VersionChecker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VersionChecker.m; sourceTree = "<group>"; };
-		5DCFE8772258CEC5006B1A21 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		5DCFE8782258CEC5006B1A21 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		6B235EC02435E7EB0008A00B /* ComposeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
+		6B3A46892435D4B000261EBC /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6B3A468A2435D4B000261EBC /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		6B3A468B2435D4B000261EBC /* UnreadCountObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnreadCountObserver.m; sourceTree = "<group>"; };
+		6B3A468C2435D4B000261EBC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6B3A468D2435D4B000261EBC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6B3A468E2435D4B000261EBC /* PrintManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintManager.h; sourceTree = "<group>"; };
+		6B3A468F2435D4B000261EBC /* VersionChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionChecker.m; sourceTree = "<group>"; };
+		6B3A46902435D4B000261EBC /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		6B3A46912435D4B000261EBC /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
+		6B3A46932435D4B000261EBC /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		6B3A46942435D4B000261EBC /* UnreadCountObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnreadCountObserver.h; sourceTree = "<group>"; };
+		6B3A46952435D4B000261EBC /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		6B3A46962435D4B000261EBC /* VersionChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionChecker.h; sourceTree = "<group>"; };
+		6B3A46972435D4B000261EBC /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
+		6B3A46982435D4B000261EBC /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		6B3A46992435D4B000261EBC /* ComposeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeWindowController.m; sourceTree = "<group>"; };
+		6B3A469A2435D4B000261EBC /* FastmateScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastmateScriptCommand.m; sourceTree = "<group>"; };
+		6B3A469B2435D4B000261EBC /* Fastmate.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Fastmate.js; sourceTree = "<group>"; };
+		6B3A469C2435D4B000261EBC /* PrintManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintManager.m; sourceTree = "<group>"; };
+		6B3A469E2435D4B100261EBC /* Fastmate.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Fastmate.sdef; sourceTree = "<group>"; };
+		6B3A469F2435D4B100261EBC /* Fastmate.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Fastmate.entitlements; sourceTree = "<group>"; };
+		6B3A46A02435D4B100261EBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6B3A46A12435D4B100261EBC /* FastmateScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastmateScriptCommand.h; sourceTree = "<group>"; };
+		6B3A46A22435D4B100261EBC /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6B3A46B32435D5DC00261EBC /* ComposeWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeWindowController.h; sourceTree = "<group>"; };
+		6B3A46B42435D60F00261EBC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		6B522DD62435E84400BCC9BE /* ComposeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,29 +87,44 @@
 		5D39BED82122383800693D7E /* Fastmate */ = {
 			isa = PBXGroup;
 			children = (
-				5D39BED92122383800693D7E /* AppDelegate.h */,
-				5D39BEDA2122383800693D7E /* AppDelegate.m */,
-				5D6EF779212E018700C84B4A /* MainWindowController.h */,
-				5D6EF77A212E018700C84B4A /* MainWindowController.m */,
-				5D6E3B352122FF9E00ED16C9 /* WebViewController.h */,
-				5D6E3B362122FF9E00ED16C9 /* WebViewController.m */,
-				5D0F8E93240B910A00287BD1 /* PrintManager.h */,
-				5D0F8E94240B910A00287BD1 /* PrintManager.m */,
-				5DA21A17212865F000C765BF /* UnreadCountObserver.h */,
-				5DA21A18212865F000C765BF /* UnreadCountObserver.m */,
-				5DCFE8772258CEC5006B1A21 /* SettingsViewController.h */,
-				5DCFE8782258CEC5006B1A21 /* SettingsViewController.m */,
-				5DC2AF2B225933BE004C94E5 /* VersionChecker.h */,
-				5DC2AF2C225933BE004C94E5 /* VersionChecker.m */,
-				5D6E3B3A212824AF00ED16C9 /* Fastmate.js */,
-				5D39BEDC2122383900693D7E /* Assets.xcassets */,
-				5DA21A142128617900C765BF /* Main.storyboard */,
-				5D39BEE12122383900693D7E /* Info.plist */,
-				5D39BEE22122383900693D7E /* main.m */,
-				5D39BEE42122383900693D7E /* Fastmate.entitlements */,
-				5D14A8EA22C425B400A5ACE9 /* Credits.rtf */,
+				6B522DD82436143C00BCC9BE /* Base.lproj */,
+				6B3A46892435D4B000261EBC /* AppDelegate.h */,
+				6B3A46A22435D4B100261EBC /* AppDelegate.m */,
+				6B3A46A02435D4B100261EBC /* Assets.xcassets */,
+				6B3A46992435D4B000261EBC /* ComposeWindowController.m */,
+				6B3A46B32435D5DC00261EBC /* ComposeWindowController.h */,
+				6B3A468A2435D4B000261EBC /* Credits.rtf */,
+				6B3A469F2435D4B100261EBC /* Fastmate.entitlements */,
+				6B3A469B2435D4B000261EBC /* Fastmate.js */,
+				6B3A469E2435D4B100261EBC /* Fastmate.sdef */,
+				6B3A46A12435D4B100261EBC /* FastmateScriptCommand.h */,
+				6B3A469A2435D4B000261EBC /* FastmateScriptCommand.m */,
+				6B3A468D2435D4B000261EBC /* Info.plist */,
+				6B3A468C2435D4B000261EBC /* main.m */,
+				6B3A46912435D4B000261EBC /* MainWindowController.h */,
+				6B3A46972435D4B000261EBC /* MainWindowController.m */,
+				6B3A468E2435D4B000261EBC /* PrintManager.h */,
+				6B3A469C2435D4B000261EBC /* PrintManager.m */,
+				6B3A46902435D4B000261EBC /* SettingsViewController.h */,
+				6B3A46982435D4B000261EBC /* SettingsViewController.m */,
+				6B3A46942435D4B000261EBC /* UnreadCountObserver.h */,
+				6B3A468B2435D4B000261EBC /* UnreadCountObserver.m */,
+				6B3A46962435D4B000261EBC /* VersionChecker.h */,
+				6B3A468F2435D4B000261EBC /* VersionChecker.m */,
+				6B3A46952435D4B000261EBC /* WebViewController.h */,
+				6B3A46932435D4B000261EBC /* WebViewController.m */,
+				6B522DD62435E84400BCC9BE /* ComposeViewController.h */,
+				6B235EC02435E7EB0008A00B /* ComposeViewController.m */,
 			);
 			path = Fastmate;
+			sourceTree = "<group>";
+		};
+		6B522DD82436143C00BCC9BE /* Base.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				6B3A46B42435D60F00261EBC /* Main.storyboard */,
+			);
+			path = Base.lproj;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,10 +188,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D39BEDD2122383900693D7E /* Assets.xcassets in Resources */,
-				5DA21A162128617900C765BF /* Main.storyboard in Resources */,
-				5D6E3B3B212824AF00ED16C9 /* Fastmate.js in Resources */,
-				5D14A8EB22C425B400A5ACE9 /* Credits.rtf in Resources */,
+				6B3A46A32435D4B100261EBC /* Credits.rtf in Resources */,
+				6B3A46B52435D60F00261EBC /* Main.storyboard in Resources */,
+				6B3A46B02435D4B100261EBC /* Fastmate.sdef in Resources */,
+				6B3A46B12435D4B100261EBC /* Assets.xcassets in Resources */,
+				6B3A46AE2435D4B100261EBC /* Fastmate.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,29 +203,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D6EF77B212E018700C84B4A /* MainWindowController.m in Sources */,
-				5DA21A19212865F000C765BF /* UnreadCountObserver.m in Sources */,
-				5D39BEE32122383900693D7E /* main.m in Sources */,
-				5DCFE8792258CEC5006B1A21 /* SettingsViewController.m in Sources */,
-				5D6E3B372122FF9E00ED16C9 /* WebViewController.m in Sources */,
-				5D0F8E95240B910A00287BD1 /* PrintManager.m in Sources */,
-				5D39BEDB2122383800693D7E /* AppDelegate.m in Sources */,
-				5DC2AF2D225933BE004C94E5 /* VersionChecker.m in Sources */,
+				6B3A46AA2435D4B100261EBC /* MainWindowController.m in Sources */,
+				6B3A46A52435D4B100261EBC /* main.m in Sources */,
+				6B3A46A72435D4B100261EBC /* VersionChecker.m in Sources */,
+				6B3A46AD2435D4B100261EBC /* FastmateScriptCommand.m in Sources */,
+				6B3A46B22435D4B100261EBC /* AppDelegate.m in Sources */,
+				6B3A46AB2435D4B100261EBC /* SettingsViewController.m in Sources */,
+				6B3A46A42435D4B100261EBC /* UnreadCountObserver.m in Sources */,
+				6B3A46A92435D4B100261EBC /* WebViewController.m in Sources */,
+				6B522DD72435E92D00BCC9BE /* ComposeViewController.m in Sources */,
+				6B3A46AF2435D4B100261EBC /* PrintManager.m in Sources */,
+				6B3A46AC2435D4B100261EBC /* ComposeWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		5DA21A142128617900C765BF /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5DA21A152128617900C765BF /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		5D39BEE52122383900693D7E /* Debug */ = {
@@ -327,7 +346,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 1.4.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.ekstrom.Fastmate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mdbraber.Fastmate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -349,7 +368,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 1.4.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.ekstrom.Fastmate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mdbraber.Fastmate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
